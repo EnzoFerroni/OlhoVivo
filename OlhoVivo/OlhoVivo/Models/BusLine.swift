@@ -20,7 +20,7 @@ nonisolated struct BusLine: Codable, Identifiable, Hashable {
 
     var id: Int { code }
 
-    /// Badge identifier, e.g. `6913-10`.
+    /// Badge identifier like 6913-10.
     var identifier: String { "\(sign)-\(signSuffix)" }
 
     var zone: Zone { Zone.forLineCode(code) }

@@ -1,46 +1,83 @@
-<img src="https://www.sptrans.com.br/images/logo-sptrans.png" alt="Olho Vivo" height="48" align="right" />
+<div align="center">
 
 # Olho Vivo
 
-[![Platform](https://img.shields.io/badge/platform-iOS%2026.5%2B-blue.svg)](https://developer.apple.com/ios/)
-[![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://swift.org)
-[![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-brightgreen.svg)](https://developer.apple.com/xcode/swiftui/)
-[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](#license)
+### Acompanhe as linhas de ônibus de São Paulo em tempo real. 🚌
 
-Olho Vivo é um aplicativo iOS para acompanhar, em tempo real, as linhas de ônibus
-da cidade de São Paulo. Pesquise uma linha, selecione-a e veja seus pontos e os
-veículos em operação diretamente no mapa.
+Pesquise uma linha, selecione-a e veja os pontos e os ônibus em operação
+direto no mapa — em um app nativo em SwiftUI.
 
-Os dados são fornecidos pela [API Olho Vivo](https://www.sptrans.com.br/desenvolvedores/)
-da SPTrans, desenvolvida pelo Governo do Estado de São Paulo.
+<br/>
 
-## Conteúdo
+[![Platform](https://img.shields.io/badge/iOS-26.5+-000000?style=for-the-badge&logo=apple&logoColor=white)](https://www.apple.com/ios/)
+[![Swift](https://img.shields.io/badge/Swift-5-FA7343?style=for-the-badge&logo=swift&logoColor=white)](https://swift.org)
+[![SwiftUI](https://img.shields.io/badge/SwiftUI-0080FF?style=for-the-badge&logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
+[![License](https://img.shields.io/badge/License-MIT-3DA639?style=for-the-badge)](LICENSE)
 
-- [Funcionalidades](#funcionalidades)
-- [Requisitos](#requisitos)
-- [Começando](#começando)
-  - [Chave da API](#chave-da-api)
-- [Arquitetura](#arquitetura)
-- [Estrutura do projeto](#estrutura-do-projeto)
-- [Componentes](#componentes)
-- [Créditos](#créditos)
-- [Licença](#license)
+</div>
 
-## Funcionalidades
+---
 
-- 🔎 **Busca de linhas** por número ou destino (`Linha/Buscar`).
-- 🗺️ **Pontos no mapa** da linha selecionada (`Parada/BuscarParadasPorLinha`).
-- 🚌 **Veículos em operação** posicionados em tempo real (`Posicao/Linha`).
-- 🎨 **Identificador de linha** colorido pela zona de origem.
-- 📍 **Centralização** na localização do usuário.
+## 📑 Sumário
 
-## Requisitos
+- [Sobre](#-sobre)
+- [Funcionalidades](#-funcionalidades)
+- [Como funciona](#-como-funciona)
+- [Tecnologias](#-tecnologias)
+- [Estrutura do projeto](#-estrutura-do-projeto)
+- [Como rodar](#-como-rodar)
+- [Autor](#-autor)
+- [Licença](#-licença)
 
-- iOS 26.5+
-- Xcode 26.5+
-- Swift 5
+---
 
-## Começando
+## ✨ Sobre
+
+**Olho Vivo** é um app iOS em **SwiftUI** que consome a
+[API Olho Vivo](https://www.sptrans.com.br/desenvolvedores/) da SPTrans para
+mostrar, em tempo real, as linhas de ônibus da cidade de São Paulo.
+
+---
+
+## 🚀 Funcionalidades
+
+- 🔎 **Busca de linhas** por número ou destino
+- 🗺️ **Pontos no mapa** da linha selecionada
+- 🚌 **Ônibus em operação** posicionados em tempo real
+- 🎨 **Identificador de linha** colorido pela zona
+
+---
+
+## 🧠 Como funciona
+
+1. O usuário pesquisa uma linha na barra de busca.
+2. Ao selecionar uma linha, o app busca seus pontos e veículos.
+3. Pontos e ônibus aparecem como marcadores no mapa.
+
+---
+
+## 🛠️ Tecnologias
+
+- **SwiftUI** e **MapKit**
+- **async/await** para a camada de rede
+- Arquitetura **MVVM**
+- **API Olho Vivo** (SPTrans)
+
+---
+
+## 📂 Estrutura do projeto
+
+```
+OlhoVivo/OlhoVivo/
+├── Models/          BusLine, BusStop, Vehicle, Zone
+├── Services/        OlhoVivoService
+├── ViewModels/      MapViewModel
+└── Views/           MapView, SheetView, Components
+```
+
+---
+
+## 🎯 Como rodar
 
 ```bash
 git clone https://github.com/EnzoFerroni/OlhoVivo.git
@@ -48,70 +85,25 @@ cd OlhoVivo
 open OlhoVivo/OlhoVivo.xcodeproj
 ```
 
-### Chave da API
+A chave da API não é versionada. Para rodar o projeto:
 
-A chave da API **não é versionada** (está no `.gitignore`). Para rodar o projeto
-você precisa criar o arquivo de configuração com a sua própria chave:
-
-1. Solicite um token em
-   [sptrans.com.br/desenvolvedores](https://www.sptrans.com.br/desenvolvedores/).
-2. Crie o arquivo `OlhoVivo/Secrets.xcconfig` com o conteúdo:
+1. Pegue um token em [sptrans.com.br/desenvolvedores](https://www.sptrans.com.br/desenvolvedores/).
+2. Crie o arquivo `OlhoVivo/Secrets.xcconfig`:
 
    ```
    API = sua_chave_aqui
    ```
 
-3. Compile e execute (`⌘R`).
+3. Rode com `⌘R`.
 
-O `Secrets.xcconfig` é referenciado como *base configuration* do target e exposto
-em tempo de execução pela chave `API` do `Info.plist`, lida em
-[`OlhoVivoService`](OlhoVivo/OlhoVivo/Services/OlhoVivoService.swift).
+---
 
-## Arquitetura
+## 👤 Autor
 
-O app segue **MVVM**, mantendo as camadas isoladas e testáveis:
+**Enzo Ferroni** — [GitHub](https://github.com/EnzoFerroni)
 
-```
-View  ──▶  ViewModel  ──▶  Service  ──▶  Olho Vivo API
-(SwiftUI)  (estado)        (rede)
-```
+---
 
-- **Models** — tipos `Codable` que mapeiam o JSON da API.
-- **Services** — `OlhoVivoService`, um `actor` que autentica e consome a API.
-- **ViewModels** — `MapViewModel`, estado observável da tela.
-- **Views** — telas e componentes reutilizáveis em SwiftUI.
+## 📄 Licença
 
-## Estrutura do projeto
-
-```
-OlhoVivo/OlhoVivo/
-├── Models/          BusLine, BusStop, Vehicle, Zone
-├── Services/        OlhoVivoService
-├── ViewModels/      MapViewModel
-└── Views/
-    ├── MapView, SheetView
-    └── Components/  LineCard, LineIdentifier, StopIdentifier,
-                     CenterButton, EmptyLineState
-```
-
-## Componentes
-
-| Componente | Descrição |
-|------------|-----------|
-| `LineIdentifier` | Badge com o identificador textual da linha, colorido pela zona. |
-| `LineCard` | Linha, terminais, total de paradas e indicador de comportamento circular. |
-| `StopIdentifier` | Nome e endereço de um ponto. |
-| `CenterButton` | Recentraliza o mapa na localização do usuário. |
-| `EmptyLineState` | Estado vazio da busca. |
-
-O código é documentado com comentários **DocC** (`///`). Gere a documentação pelo
-Xcode em **Product → Build Documentation**.
-
-## Créditos
-
-- Design: *Handoff – Check-In (06/2026)*.
-- Dados: [API Olho Vivo – SPTrans](https://www.sptrans.com.br/desenvolvedores/).
-
-## License
-
-Olho Vivo é distribuído sob a licença MIT.
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE).

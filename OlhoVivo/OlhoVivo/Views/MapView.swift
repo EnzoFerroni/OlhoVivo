@@ -12,7 +12,6 @@ import MapKit
 struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
     @State private var locationManager = CLLocationManager()
-    @State private var showClearAlert = false
 
     var body: some View {
         Map(position: $viewModel.cameraPosition) {
@@ -46,33 +45,13 @@ struct MapView: View {
             .padding(.trailing, 16)
             .padding(.top, 8)
         }
-        .overlay(alignment: .bottomLeading) {
-            if viewModel.selectedLine != nil {
-                Button { showClearAlert = true } label: {
-                    Image(systemName: "xmark")
-                        .foregroundStyle(Color.foregroundSecondary)
-                        .frame(width: 44, height: 44)
-                        .glassEffect(in: .rect(cornerRadius: 8))
-                }
-                .buttonStyle(.plain)
-                .padding(.leading, 16)
-                .padding(.bottom, 210)
-            }
-        }
         .sheet(isPresented: .constant(true)) {
             SheetView(viewModel: viewModel)
-        }
-        .alert("Deseja limpar sua seleção?", isPresented: $showClearAlert) {
-            Button("Cancelar", role: .cancel) {}
-            Button("Sim", role: .destructive) {
-                viewModel.clearSelection()
-            }
-        } message: {
-            Text("Ao limpar sua seleção, você deixará de ver informações da linha atual.")
         }
         .onAppear {
             locationManager.requestWhenInUseAuthorization()
         }
+        .preferredColorScheme(.light)
     }
 }
 
