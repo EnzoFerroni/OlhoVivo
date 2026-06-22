@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-/// Bottom sheet that hosts line search and the selected line's details.
-///
-/// It shows one of three states: an empty placeholder, a list of search
-/// results, or the details of the currently selected line.
+/// Bottom sheet: empty state, search results, or selected line details.
 struct SheetView: View {
     @ObservedObject var viewModel: MapViewModel
 
@@ -101,7 +98,6 @@ struct SheetView: View {
     }
 }
 
-/// Rounded grey background used by the sheet's search field.
 struct TextFieldGrayBackgroundColor: ViewModifier {
     func body(content: Content) -> some View {
         content

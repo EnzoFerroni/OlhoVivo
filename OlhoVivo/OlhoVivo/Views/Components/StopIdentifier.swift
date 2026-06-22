@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-/// Displays the name and address of a stop served by the selected line.
-///
-/// See *Identificador de Ponto* in the design handoff.
+/// Stop name and address.
 struct StopIdentifier: View {
     let name: String
     let address: String

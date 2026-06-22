@@ -9,8 +9,7 @@ import Combine
 import MapKit
 import SwiftUI
 
-/// Drives the map screen: searching lines, selecting one, and loading its
-/// stops and operating vehicles from the Olho Vivo API.
+/// State for the map screen: search, selection, stops and vehicles.
 @MainActor
 final class MapViewModel: ObservableObject {
     @Published var searchText = ""
@@ -27,7 +26,6 @@ final class MapViewModel: ObservableObject {
         self.service = service
     }
 
-    /// Searches lines matching ``searchText``. Clears results for empty input.
     func search() async {
         let query = searchText.trimmingCharacters(in: .whitespaces)
         guard !query.isEmpty else {
@@ -41,7 +39,7 @@ final class MapViewModel: ObservableObject {
         searchResults = (try? await service.searchLines(query)) ?? []
     }
 
-    /// Selects a line, loading its stops and vehicles and framing them on the map.
+    /// Selects a line and loads its stops and vehicles onto the map.
     func select(_ line: BusLine) async {
         isLoading = true
         defer { isLoading = false }
@@ -59,7 +57,6 @@ final class MapViewModel: ObservableObject {
         frameStops()
     }
 
-    /// Clears the current selection and returns to the search state.
     func clearSelection() {
         selectedLine = nil
         stops = []
@@ -67,7 +64,6 @@ final class MapViewModel: ObservableObject {
         cameraPosition = .automatic
     }
 
-    /// Centres the camera back on the user's location.
     func recenter() {
         cameraPosition = .userLocation(fallback: .automatic)
     }
@@ -80,7 +76,7 @@ final class MapViewModel: ObservableObject {
 }
 
 private extension MKCoordinateRegion {
-    /// Builds a region that fits all the given coordinates, with some padding.
+    /// Region fitting all coordinates, with padding.
     init?(fitting coordinates: [CLLocationCoordinate2D]) {
         guard let first = coordinates.first else { return nil }
 

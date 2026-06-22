@@ -7,13 +7,10 @@
 
 import SwiftUI
 
-/// A row describing a bus line: its ``LineIdentifier`` badge, origin and
-/// destination terminals, an optional stop count, and a circular indicator.
-///
-/// See *Card de Linha* in the design handoff.
+/// Line row: badge, terminals, stop count and circular indicator.
 struct LineCard: View {
     let line: BusLine
-    /// Number of stops to display. When `nil`, the count is hidden.
+    /// Hidden when `nil`.
     var stopCount: Int?
 
     var body: some View {

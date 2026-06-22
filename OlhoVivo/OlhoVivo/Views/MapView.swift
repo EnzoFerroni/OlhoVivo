@@ -8,10 +8,7 @@
 import SwiftUI
 import MapKit
 
-/// Root screen: a full-screen map with the line sheet on top.
-///
-/// When a line is selected, its stops and vehicles are drawn as annotations
-/// and a clear button lets the user dismiss the selection.
+/// Root screen: full-screen map with the line sheet on top.
 struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
     @State private var locationManager = CLLocationManager()

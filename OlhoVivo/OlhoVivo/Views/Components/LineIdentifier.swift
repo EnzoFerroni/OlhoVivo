@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-/// Displays a line's textual identifier on a badge filled with its zone colour.
-///
-/// See *Identificador de Linha* in the design handoff.
+/// Line identifier badge, filled with the zone colour.
 struct LineIdentifier: View {
     let code: String
     let color: Color

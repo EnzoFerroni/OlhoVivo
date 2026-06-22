@@ -7,20 +7,16 @@
 
 import Foundation
 
-/// Errors thrown by ``OlhoVivoService``.
 enum OlhoVivoError: Error {
     case missingAPIKey
     case authenticationFailed
     case requestFailed
 }
 
-/// Lightweight client for the SPTrans Olho Vivo REST API.
+/// Client for the SPTrans Olho Vivo REST API.
 ///
-/// Authentication uses a token stored in `Secrets.xcconfig` and exposed through
-/// the app's Info.plist (`API` key). A successful login returns a session cookie
-/// that `URLSession` reuses automatically on subsequent requests.
-///
-/// API reference: <https://www.sptrans.com.br/desenvolvedores/>
+/// Login returns a session cookie that `URLSession` reuses on later requests.
+/// The token comes from `Secrets.xcconfig` via the Info.plist `API` key.
 actor OlhoVivoService {
     static let shared = OlhoVivoService()
 
@@ -32,20 +28,20 @@ actor OlhoVivoService {
         self.session = session
     }
 
-    /// Searches bus lines matching `query` (line number or terminal name).
+    /// Searches lines by number or terminal name.
     func searchLines(_ query: String) async throws -> [BusLine] {
         try await authenticateIfNeeded()
         return try await get("Linha/Buscar", query: ["termosBusca": query])
     }
 
-    /// Returns the stops served by the line with the given code.
+    /// Stops served by the line.
     func stops(forLineCode code: Int) async throws -> [BusStop] {
         try await authenticateIfNeeded()
         return try await get("Parada/BuscarParadasPorLinha",
                              query: ["codigoLinha": String(code)])
     }
 
-    /// Returns the vehicles currently operating on the line with the given code.
+    /// Vehicles currently operating on the line.
     func vehicles(forLineCode code: Int) async throws -> [Vehicle] {
         try await authenticateIfNeeded()
         let positions: VehiclePositions = try await get("Posicao/Linha",
@@ -66,9 +62,7 @@ actor OlhoVivoService {
         var request = URLRequest(url: try makeURL("Login/Autenticar",
                                                   query: ["token": key]))
         request.httpMethod = "POST"
-        // The endpoint rejects bodyless POSTs (HTTP 411); send an empty body
-        // so URLSession includes a `Content-Length: 0` header.
-        request.httpBody = Data()
+        request.httpBody = Data() // empty body so URLSession sends Content-Length: 0 (avoids HTTP 411)
 
         let (data, _) = try await session.data(for: request)
         guard String(data: data, encoding: .utf8) == "true" else {

@@ -9,18 +9,13 @@ import CoreLocation
 
 /// A vehicle currently operating on a line (`Posicao/Linha`).
 nonisolated struct Vehicle: Codable, Identifiable, Hashable {
-    /// Vehicle prefix/plate (`p`).
     let prefix: String
-    /// Whether the vehicle is wheelchair accessible (`a`).
     let accessible: Bool
-    /// Latitude (`py`).
     let latitude: Double
-    /// Longitude (`px`).
     let longitude: Double
 
     var id: String { prefix }
 
-    /// Map coordinate for the vehicle annotation.
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
@@ -33,7 +28,7 @@ nonisolated struct Vehicle: Codable, Identifiable, Hashable {
     }
 }
 
-/// Wrapper for the `Posicao/Linha` response, which nests vehicles under `vs`.
+/// `Posicao/Linha` response, nesting vehicles under `vs`.
 nonisolated struct VehiclePositions: Codable {
     let vehicles: [Vehicle]
 
