@@ -7,24 +7,25 @@
 
 import SwiftUI
 
+/// Line identifier badge, filled with the zone colour.
 struct LineIdentifier: View {
+    let code: String
+    let color: Color
+
     var body: some View {
-        HStack(alignment: .center, spacing: 10) {
-            Text("6913-10")
-              .font(
+        Text(code)
+            .font(
                 Font.custom("SF Pro", size: 16)
-                  .weight(.bold)
-              )
-              .multilineTextAlignment(.center)
-              .foregroundColor(.white)
-        }
-        .padding(0)
-        .frame(width: 90, height: 44, alignment: .center)
-        .background(Color.zonaSul)
-        .cornerRadius(8)
+                    .weight(.bold)
+            )
+            .multilineTextAlignment(.center)
+            .foregroundColor(.white)
+            .frame(width: 72, height: 44, alignment: .center)
+            .background(color)
+            .cornerRadius(8)
     }
 }
 
 #Preview {
-    LineIdentifier()
+    LineIdentifier(code: "6913-10", color: .zonaSul)
 }
