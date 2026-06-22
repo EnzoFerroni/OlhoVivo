@@ -2,7 +2,7 @@
 
 # Olho Vivo
 
-### Acompanhe as linhas de ônibus de São Paulo em tempo real. 🚌
+### Acompanhe as linhas de ônibus de São Paulo em tempo real.
 
 Pesquise uma linha, selecione-a e veja os pontos e os ônibus em operação
 direto no mapa — em um app nativo em SwiftUI.
@@ -18,20 +18,20 @@ direto no mapa — em um app nativo em SwiftUI.
 
 ---
 
-## 📑 Sumário
+## Sumário
 
-- [Sobre](#-sobre)
-- [Funcionalidades](#-funcionalidades)
-- [Como funciona](#-como-funciona)
-- [Tecnologias](#-tecnologias)
-- [Estrutura do projeto](#-estrutura-do-projeto)
-- [Como rodar](#-como-rodar)
-- [Autor](#-autor)
-- [Licença](#-licença)
+- [Sobre](#sobre)
+- [Funcionalidades](#funcionalidades)
+- [Como funciona](#como-funciona)
+- [Tecnologias](#tecnologias)
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Como rodar](#como-rodar)
+- [Autor](#autor)
+- [Licença](#licença)
 
 ---
 
-## ✨ Sobre
+## Sobre
 
 **Olho Vivo** é um app iOS em **SwiftUI** que consome a
 [API Olho Vivo](https://www.sptrans.com.br/desenvolvedores/) da SPTrans para
@@ -39,16 +39,16 @@ mostrar, em tempo real, as linhas de ônibus da cidade de São Paulo.
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
-- 🔎 **Busca de linhas** por número ou destino
-- 🗺️ **Pontos no mapa** da linha selecionada
-- 🚌 **Ônibus em operação** posicionados em tempo real
-- 🎨 **Identificador de linha** colorido pela zona
+- Busca de linhas por número ou destino
+- Pontos no mapa da linha selecionada
+- Ônibus em operação posicionados em tempo real
+- Identificador de linha colorido pela zona
 
 ---
 
-## 🧠 Como funciona
+## Como funciona
 
 1. O usuário pesquisa uma linha na barra de busca.
 2. Ao selecionar uma linha, o app busca seus pontos e veículos.
@@ -56,7 +56,7 @@ mostrar, em tempo real, as linhas de ônibus da cidade de São Paulo.
 
 ---
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - **SwiftUI** e **MapKit**
 - **async/await** para a camada de rede
@@ -65,7 +65,7 @@ mostrar, em tempo real, as linhas de ônibus da cidade de São Paulo.
 
 ---
 
-## 📂 Estrutura do projeto
+## Estrutura do projeto
 
 ```
 OlhoVivo/OlhoVivo/
@@ -77,7 +77,7 @@ OlhoVivo/OlhoVivo/
 
 ---
 
-## 🎯 Como rodar
+## Como rodar
 
 ```bash
 git clone https://github.com/EnzoFerroni/OlhoVivo.git
@@ -98,12 +98,12 @@ A chave da API não é versionada. Para rodar o projeto:
 
 ---
 
-## 👤 Autor
+## Autor
 
 **Enzo Ferroni** — [GitHub](https://github.com/EnzoFerroni)
 
 ---
 
-## 📄 Licença
+## Licença
 
 Distribuído sob a licença MIT. Veja [LICENSE](LICENSE).

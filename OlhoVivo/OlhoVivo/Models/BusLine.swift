@@ -23,7 +23,7 @@ nonisolated struct BusLine: Codable, Identifiable, Hashable {
     /// Badge identifier like 6913-10.
     var identifier: String { "\(sign)-\(signSuffix)" }
 
-    var zone: Zone { Zone.forLineCode(code) }
+    var zone: Zone { Zone.forLineSign(sign) }
 
     var origin: String { direction == 1 ? primaryTerminal : secondaryTerminal }
 

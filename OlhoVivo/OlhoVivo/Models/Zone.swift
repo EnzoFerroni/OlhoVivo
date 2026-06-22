@@ -26,9 +26,21 @@ enum Zone: CaseIterable {
         }
     }
 
-    /// Stable zone for a line code (the API does not expose the origin zone).
-    nonisolated static func forLineCode(_ code: Int) -> Zone {
-        let zones = Zone.allCases
-        return zones[abs(code) % zones.count]
+    /// Zone given by the first digit of the line number (its origin region).
+    nonisolated static func forLineSign(_ sign: String) -> Zone {
+        let firstDigit = sign.first { $0.isNumber }?.wholeNumberValue ?? 0
+
+        switch firstDigit {
+        case 1: return .central
+        case 2: return .norte
+        case 3: return .nordeste
+        case 4: return .leste
+        case 5: return .sudeste
+        case 6: return .sul
+        case 7: return .sudoeste
+        case 8: return .oeste
+        case 9: return .noroeste
+        default: return .central
+        }
     }
 }

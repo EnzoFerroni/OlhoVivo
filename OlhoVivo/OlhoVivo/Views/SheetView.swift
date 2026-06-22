@@ -12,7 +12,6 @@ struct SheetView: View {
     @ObservedObject var viewModel: MapViewModel
 
     @State private var lineToConfirm: BusLine?
-    @State private var showClearAlert = false
 
     var body: some View {
         VStack(spacing: 16) {
@@ -49,14 +48,6 @@ struct SheetView: View {
         } message: { _ in
             Text("Ao selecioná-la, você verá a posição dos pontos e os ônibus em operação no mapa.")
         }
-        .alert("Deseja limpar sua seleção?", isPresented: $showClearAlert) {
-            Button("Cancelar", role: .cancel) {}
-            Button("Sim", role: .destructive) {
-                viewModel.clearSelection()
-            }
-        } message: {
-            Text("Ao limpar sua seleção, você deixará de ver informações da linha atual.")
-        }
     }
 
     private var searchField: some View {
@@ -86,17 +77,7 @@ struct SheetView: View {
     private func lineDetails(for line: BusLine) -> some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    LineCard(line: line, stopCount: viewModel.stops.count)
-
-                    Button {
-                        showClearAlert = true
-                    } label: {
-                        Image(systemName: "xmark")
-                            .foregroundColor(Color.foregroundSecondary)
-                    }
-                    .buttonStyle(.plain)
-                }
+                LineCard(line: line, stopCount: viewModel.stops.count)
 
                 Text("\(viewModel.vehicles.count) veículos operando na linha")
                     .font(Font.custom("SF Pro", size: 14))
