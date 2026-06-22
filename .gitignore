@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/swift,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=swift,macos
 
+### Secrets ###
+# API key for the SPTrans Olho Vivo API (see README for setup)
+Secrets.xcconfig
+
 ### macOS ###
 # General
 .DS_Store
