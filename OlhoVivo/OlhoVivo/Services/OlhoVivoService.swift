@@ -66,6 +66,9 @@ actor OlhoVivoService {
         var request = URLRequest(url: try makeURL("Login/Autenticar",
                                                   query: ["token": key]))
         request.httpMethod = "POST"
+        // The endpoint rejects bodyless POSTs (HTTP 411); send an empty body
+        // so URLSession includes a `Content-Length: 0` header.
+        request.httpBody = Data()
 
         let (data, _) = try await session.data(for: request)
         guard String(data: data, encoding: .utf8) == "true" else {
