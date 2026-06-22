@@ -14,6 +14,7 @@ struct CenterButton: View {
                 .foregroundStyle(Color.foregroundSecondary)
                 .frame(width: 44, height: 44)
                 .glassEffect(in: .rect(cornerRadius: 8))
+                .contentShape(.rect(cornerRadius: 8))
         }
     }
 }

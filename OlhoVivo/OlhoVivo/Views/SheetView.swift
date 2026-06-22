@@ -38,6 +38,7 @@ struct SheetView: View {
                         .foregroundStyle(Color.foregroundSecondary)
                         .frame(width: 44, height: 44)
                         .glassEffect(in: .circle)
+                        .contentShape(.circle)
                 }
                 .buttonStyle(.plain)
                 .padding(16)
