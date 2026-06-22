@@ -45,7 +45,7 @@ struct SheetView: View {
             }
         }
         .interactiveDismissDisabled()
-        .presentationDetents([.height(200), .large])
+        .presentationDetents([.height(220), .large])
         .presentationBackground(.regularMaterial)
         .presentationBackgroundInteraction(.enabled(upThrough: .large))
         .task(id: viewModel.searchText) {
@@ -94,6 +94,7 @@ struct SheetView: View {
                 }
             }
         }
+        .contentMargins(.bottom, 24, for: .scrollContent)
     }
 
     private func lineDetails(for line: BusLine) -> some View {
@@ -110,6 +111,7 @@ struct SheetView: View {
                 }
             }
         }
+        .contentMargins(.bottom, 24, for: .scrollContent)
     }
 
     private var confirmBinding: Binding<Bool> {
