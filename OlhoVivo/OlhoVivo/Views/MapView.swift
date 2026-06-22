@@ -46,16 +46,16 @@ struct MapView: View {
             .padding(.trailing, 16)
             .padding(.top, 8)
         }
-        .overlay(alignment: .bottomLeading) {
+        .overlay(alignment: .bottomTrailing) {
             if viewModel.selectedLine != nil {
                 Button { showClearAlert = true } label: {
                     Image(systemName: "xmark")
                         .foregroundStyle(Color.foregroundSecondary)
                         .frame(width: 44, height: 44)
-                        .glassEffect(in: .rect(cornerRadius: 8))
+                        .glassEffect(in: .circle)
                 }
                 .buttonStyle(.plain)
-                .padding(.leading, 16)
+                .padding(.trailing, 16)
                 .padding(.bottom, 210)
             }
         }
