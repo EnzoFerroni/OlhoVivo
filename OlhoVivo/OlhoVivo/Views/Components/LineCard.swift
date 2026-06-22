@@ -7,45 +7,57 @@
 
 import SwiftUI
 
+/// A row describing a bus line: its ``LineIdentifier`` badge, origin and
+/// destination terminals, an optional stop count, and a circular indicator.
+///
+/// See *Card de Linha* in the design handoff.
 struct LineCard: View {
+    let line: BusLine
+    /// Number of stops to display. When `nil`, the count is hidden.
+    var stopCount: Int?
+
     var body: some View {
-        HStack(spacing: 8){
-            LineIdentifier()
-            
-            VStack{
-                Text("Itaim Bibi")
-                    .font(
-                        Font.custom("SF Pro", size: 16)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(Color.foregroundSecondary)
+        HStack(spacing: 8) {
+            LineIdentifier(code: line.identifier, color: line.zone.color)
+
+            VStack(spacing: 0) {
+                Text(line.origin)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Text("Term. Varginha")
-                    .font(
-                        Font.custom("SF Pro", size: 16)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(Color.foregroundSecondary)
+
+                Text(line.destination)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            
-            VStack{
-                Text("82 paradas")
-                    .font(Font.custom("SF Pro", size: 12))
-                    .multilineTextAlignment(.trailing)
-                    .foregroundColor(Color.foregroundSecondary)
-                    .frame(maxWidth: .infinity, minHeight: 25, maxHeight: 25, alignment: .trailing)
-                
-                Image(systemName: "arrow.clockwise.circle")
-                    .multilineTextAlignment(.trailing)
-                    .frame(maxWidth: .infinity, minHeight: 15, maxHeight: 15, alignment: .trailing)
-                    .foregroundStyle(Color.compassRed)
+            .font(
+                Font.custom("SF Pro", size: 16)
+                    .weight(.medium)
+            )
+            .foregroundColor(Color.foregroundSecondary)
+
+            VStack(spacing: 4) {
+                if let stopCount {
+                    Text("\(stopCount) paradas")
+                        .font(Font.custom("SF Pro", size: 12))
+                        .foregroundColor(Color.foregroundSecondary)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+
+                if line.circular {
+                    Image(systemName: "arrow.clockwise.circle")
+                        .foregroundStyle(Color.compassRed)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
             }
         }
     }
 }
 
 #Preview {
-    LineCard()
+    LineCard(
+        line: BusLine(
+            code: 1234, circular: true, sign: "6913", signSuffix: 21,
+            direction: 1, primaryTerminal: "Itaim Bibi", secondaryTerminal: "Term. Varginha"
+        ),
+        stopCount: 82
+    )
+    .padding()
 }
