@@ -12,6 +12,7 @@ struct SheetView: View {
     @ObservedObject var viewModel: MapViewModel
 
     @State private var lineToConfirm: BusLine?
+    @State private var showClearAlert = false
 
     var body: some View {
         VStack(spacing: 16) {
@@ -30,6 +31,18 @@ struct SheetView: View {
             Spacer(minLength: 0)
         }
         .padding()
+        .overlay(alignment: .bottomTrailing) {
+            if viewModel.selectedLine != nil {
+                Button { showClearAlert = true } label: {
+                    Image(systemName: "xmark")
+                        .foregroundStyle(Color.foregroundSecondary)
+                        .frame(width: 44, height: 44)
+                        .glassEffect(in: .circle)
+                }
+                .buttonStyle(.plain)
+                .padding(16)
+            }
+        }
         .interactiveDismissDisabled()
         .presentationDetents([.height(200), .large])
         .presentationBackground(.regularMaterial)
@@ -47,6 +60,14 @@ struct SheetView: View {
             }
         } message: { _ in
             Text("Ao selecioná-la, você verá a posição dos pontos e os ônibus em operação no mapa.")
+        }
+        .alert("Deseja limpar sua seleção?", isPresented: $showClearAlert) {
+            Button("Cancelar", role: .cancel) {}
+            Button("Sim", role: .destructive) {
+                viewModel.clearSelection()
+            }
+        } message: {
+            Text("Ao limpar sua seleção, você deixará de ver informações da linha atual.")
         }
     }
 
