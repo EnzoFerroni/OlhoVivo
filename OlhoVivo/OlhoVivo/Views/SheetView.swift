@@ -59,11 +59,14 @@ struct SheetView: View {
             Button("Sim") {
                 Task { await viewModel.select(line) }
             }
+            .keyboardShortcut(.defaultAction)
+
         } message: { _ in
             Text("Ao selecioná-la, você verá a posição dos pontos e os ônibus em operação no mapa.")
         }
         .alert("Deseja limpar sua seleção?", isPresented: $showClearAlert) {
             Button("Cancelar", role: .cancel) {}
+                .keyboardShortcut(.defaultAction)
             Button("Sim", role: .destructive) {
                 viewModel.clearSelection()
             }
