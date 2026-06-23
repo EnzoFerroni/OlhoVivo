@@ -18,21 +18,22 @@ struct MapView: View {
             UserAnnotation()
 
             ForEach(viewModel.stops) { stop in
-                Annotation(stop.name, coordinate: stop.coordinate) {
-                    Circle()
-                        .fill(.white)
-                        .stroke(Color.foregroundSecondary, lineWidth: 3)
-                        .frame(width: 14, height: 14)
+                Annotation("", coordinate: stop.coordinate) {
+                    Image(systemName: "signpost.right.and.left")
+                        .font(.system(size: 14))
+                        .foregroundStyle(.foregroundWhite)
+                        .padding(8)
+                        .background(Color.foregroundSecondary, in: .circle)
                 }
             }
 
             ForEach(viewModel.vehicles) { vehicle in
-                Annotation(vehicle.prefix, coordinate: vehicle.coordinate) {
+                Annotation("", coordinate: vehicle.coordinate) {
                     Image(systemName: "bus.fill")
                         .font(.system(size: 14))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.foregroundSecondary)
                         .padding(8)
-                        .background(Color.compassRed, in: .circle)
+                        .background(Color.foregroundWhite, in: .circle)
                 }
             }
         }
