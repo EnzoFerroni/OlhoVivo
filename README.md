@@ -1,83 +1,54 @@
-<div align="center">
-
 # Olho Vivo
 
-### Acompanhe as linhas de ônibus de São Paulo em tempo real.
+[![iOS](https://img.shields.io/badge/iOS-26.5%2B-000000?logo=apple)](https://developer.apple.com/ios/)
+[![Swift](https://img.shields.io/badge/Swift-5-F05138?logo=swift&logoColor=white)](https://swift.org)
+[![SwiftUI](https://img.shields.io/badge/SwiftUI-MapKit-0A84FF)](https://developer.apple.com/xcode/swiftui/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-Pesquise uma linha, selecione-a e veja os pontos e os ônibus em operação
-direto no mapa — em um app nativo em SwiftUI.
+A native SwiftUI app that tracks São Paulo bus lines in real time using the SPTrans Olho Vivo API.
 
-<br/>
+## Table of Contents
 
-[![Platform](https://img.shields.io/badge/iOS-26.5+-000000?style=for-the-badge&logo=apple&logoColor=white)](https://www.apple.com/ios/)
-[![Swift](https://img.shields.io/badge/Swift-5-FA7343?style=for-the-badge&logo=swift&logoColor=white)](https://swift.org)
-[![SwiftUI](https://img.shields.io/badge/SwiftUI-0080FF?style=for-the-badge&logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
-[![License](https://img.shields.io/badge/License-MIT-3DA639?style=for-the-badge)](LICENSE)
+- [About](#about)
+- [Features](#features)
+- [How It Works](#how-it-works)
+- [Built With](#built-with)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [License](#license)
 
-</div>
+## About
 
----
+Olho Vivo was built for an Apple Developer Academy | Mackenzie technical challenge:
+turn a design handoff into a working app that consumes the
+[Olho Vivo API](https://www.sptrans.com.br/desenvolvedores/), the public REST API from
+São Paulo's transit authority (SPTrans). The UI is in Portuguese.
 
-## Sumário
+## Features
 
-- [Sobre](#sobre)
-- [Funcionalidades](#funcionalidades)
-- [Como funciona](#como-funciona)
-- [Tecnologias](#tecnologias)
-- [Estrutura do projeto](#estrutura-do-projeto)
-- [Como rodar](#como-rodar)
-- [Autor](#autor)
-- [Licença](#licença)
+- Search bus lines by number or destination
+- Show every stop of the selected line on the map
+- Show buses in operation, positioned in real time
+- Line badges colored by city zone
 
----
+## How It Works
 
-## Sobre
+1. The user searches for a line in the search bar.
+2. On selection, the app fetches the line's stops and vehicles.
+3. Stops and buses are rendered as map annotations.
 
-**Olho Vivo** é um app iOS em **SwiftUI** que consome a
-[API Olho Vivo](https://www.sptrans.com.br/desenvolvedores/) da SPTrans para
-mostrar, em tempo real, as linhas de ônibus da cidade de São Paulo.
+The API authenticates with a token and returns a session cookie, which `URLSession`
+reuses on every following request.
 
----
+## Built With
 
-## Funcionalidades
+- SwiftUI and MapKit
+- `async/await` networking
+- MVVM (`MapViewModel`, `OlhoVivoService`)
 
-- Busca de linhas por número ou destino
-- Pontos no mapa da linha selecionada
-- Ônibus em operação posicionados em tempo real
-- Identificador de linha colorido pela zona
+## Getting Started
 
----
-
-## Como funciona
-
-1. O usuário pesquisa uma linha na barra de busca.
-2. Ao selecionar uma linha, o app busca seus pontos e veículos.
-3. Pontos e ônibus aparecem como marcadores no mapa.
-
----
-
-## Tecnologias
-
-- **SwiftUI** e **MapKit**
-- **async/await** para a camada de rede
-- Arquitetura **MVVM**
-- **API Olho Vivo** (SPTrans)
-
----
-
-## Estrutura do projeto
-
-```
-OlhoVivo/OlhoVivo/
-├── Models/          BusLine, BusStop, Vehicle, Zone
-├── Services/        OlhoVivoService
-├── ViewModels/      MapViewModel
-└── Views/           MapView, SheetView, Components
-```
-
----
-
-## Como rodar
+Requirements: Xcode 26 or later and a free SPTrans developer token.
 
 ```bash
 git clone https://github.com/EnzoFerroni/OlhoVivo.git
@@ -85,36 +56,27 @@ cd OlhoVivo
 open OlhoVivo/OlhoVivo.xcodeproj
 ```
 
-A chave da API não é versionada. Para rodar o projeto:
+The token is not versioned. To run the app:
 
-1. Pegue um token em [sptrans.com.br/desenvolvedores](https://www.sptrans.com.br/desenvolvedores/).
-2. Crie o arquivo `OlhoVivo/Secrets.xcconfig`:
+1. Get a token at [sptrans.com.br/desenvolvedores](https://www.sptrans.com.br/desenvolvedores/).
+2. Create `OlhoVivo/Secrets.xcconfig`:
 
    ```
-   API = sua_chave_aqui
+   API = your_token_here
    ```
 
-3. Rode com `⌘R`.
+3. Press Run.
 
----
+## Project Structure
 
-## Autor
+```
+OlhoVivo/OlhoVivo/
+├── Models/       BusLine, BusStop, Vehicle, Zone
+├── Services/     OlhoVivoService
+├── ViewModels/   MapViewModel
+└── Views/        MapView, SheetView, Components
+```
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="100%">
-        <a href="https://github.com/EnzoFerroni"><img src="https://github.com/EnzoFerroni.png" width="100" alt="Enzo Ferroni"/></a>
-        <br/><sub><b>Enzo Ferroni</b></sub><br/><br/>
-        <a href="https://github.com/EnzoFerroni"><img src="https://skillicons.dev/icons?i=github" alt="GitHub"/></a>
-        <a href="https://www.linkedin.com/in/enzoferroni/"><img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn"/></a>
-      </td>
-    </tr>
-  </table>
-</div>
+## License
 
----
-
-## Licença
-
-Distribuído sob a licença MIT. Veja [LICENSE](LICENSE). © 2026 Enzo Ferroni.
+Released under the [MIT License](LICENSE). Copyright (c) 2026 Enzo Ferroni.
